@@ -48,3 +48,53 @@ body {
     display: inline-block;
     vertical-align: bottom;
 }
+
+.code-container {
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 760px;
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid black;
+    display: flex;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.code-block {
+    font-size: 1.2rem;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    line-height: 1.5;
+    text-align: left;
+}
+
+
+.code-line-numbers {
+    color: gray;
+    font-size: 1.2rem;
+    margin-right: 15px;
+    padding-right: 10px;
+    border-right: 2px solid var(--color-border);
+    text-align: right;
+    line-height: 1.5;
+    user-select: none;
+}
+
+.keyword {
+    color: rgb(255, 106, 131);
+}
+
+.variable {
+    color: rgb(127, 255, 127);
+}
+
+.parameter {
+    color: rgb(162, 162, 255);
+}
+
+.literal {
+    color: rgb(211, 211, 211);
+}

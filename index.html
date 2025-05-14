@@ -10,32 +10,42 @@
 <body>
     <div class="container">
         <div class="content">
-            <h1 id="algorithmTitle">Bubble Sort</h1>
+            <h1 id="algorithmTitle">Bubble Sort Visualizer</h1>
+            
             <div class="description-container" id="description">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum dolorum perspiciatis placeat molestias, vel impedit, nobis at iste repudiandae cumque minima voluptatibus maxime iusto eos, molestiae ratione enim laboriosam! Labore.
+                Bubble Sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. The process repeats until the list is sorted.
             </div>
 
             <div class="algorithm-select">
                 <label for="algorithm">Select sorting algorithm: </label>
                 <select id="algorithm">
                     <option value="bubbleSort">Bubble Sort</option>
-                    <option value="selectionSort">Selection Sort</option>
                 </select>
             </div>
 
             <p id="stepCounter">Step: 0 / 0</p>
 
+            <button id="prevBtn">Previous Step</button>
             <button id="nextBtn">Next Step</button>
             <button id="runBtn">Run</button>
             <button id="resetBtn">Reset</button>
-            
+
+            <div class="input-container">
+                <label for="customNumbers">Enter custom numbers (1-10, up to 15 numbers): </label>
+                <input type="text" id="customNumbers" placeholder="1, 2, 3, 4" />
+                <button id="inputBtn">Set Custom Numbers</button>
+            </div>
+
             <div class="graph-container" id="graph"></div>
+        </div>
+
+        <div class="code-container">
+            <div class="code-line-numbers"></div>
+            <pre class="code-block" id="codeBlock"></pre>
         </div>
     </div>
 
-    <div class="code-container">
-    </div>
-    
-    <script src="js/SortVisualizer.js"></script>
+    <script type="module" src="js/SortVisualizer.js"></script>
+    <script src="js/codeDisplay.js"></script>
 </body>
 </html>
