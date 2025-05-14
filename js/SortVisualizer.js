@@ -30,6 +30,8 @@ const bubbleSortSteps = function(arr) {
 
 const originalNumbers = [3, 9, 4, 1, 2, 8, 3, 5];
 let steps = bubbleSortSteps([...originalNumbers]);
+let currentStep = 0;
+let runInterval = null;
 
 function renderStep(stepIndex) {
     const values = steps[stepIndex];
@@ -43,5 +45,36 @@ function renderStep(stepIndex) {
     });
     stepCounter.innerText = `Step: ${stepIndex + 1} / ${steps.length}`;
 }
+
+document.getElementById("nextBtn").addEventListener("click", () => {
+  if (currentStep < steps.length - 1) {
+    currentStep++;
+    renderStep(currentStep);
+  }
+});
+
+document.getElementById("runBtn").addEventListener("click", () => {
+  if (runInterval) return;
+  runInterval = setInterval(() => {
+    currentStep++;
+    if (currentStep >= steps.length) {
+      clearInterval(runInterval);
+      runInterval = null;
+      return;
+    }
+    renderStep(currentStep);
+  }, 200);
+});
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if (runInterval) {
+    clearInterval(runInterval);
+    runInterval = null;
+  }
+  currentStep = 0;
+  steps = bubbleSortSteps([...originalNumbers]);
+  renderStep(currentStep);
+});
+
 
 renderStep(0);
