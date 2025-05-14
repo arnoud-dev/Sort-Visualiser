@@ -4,9 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SortVision</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+    <div class="container">
+        <div class="content">
+            <h1 id="algorithmTitle">Bubble Sort</h1>
+            <div class="description-container" id="description">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatum dolorum perspiciatis placeat molestias, vel impedit, nobis at iste repudiandae cumque minima voluptatibus maxime iusto eos, molestiae ratione enim laboriosam! Labore.
+            </div>
+
+            <div class="algorithm-select">
+                <label for="algorithm">Select sorting algorithm: </label>
+                <select id="algorithm">
+                    <option value="bubbleSort">Bubble Sort</option>
+                    <option value="selectionSort">Selection Sort</option>
+                </select>
+            </div>
+
+            <button id="nextBtn">Next Step</button>
+            <button id="runBtn">Run</button>
+            <button id="resetBtn">Reset</button>
+
+            <div class="graph-container" id="graph"></div>
+        </div>
+    </div>
+
+    <div class="code-container">
+    </div>
     
-    <script></script>
+    <script src="js/SortVisualizer.js"></script>
 </body>
 </html>
