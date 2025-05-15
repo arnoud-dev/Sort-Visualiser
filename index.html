@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SortVision</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
     <div class="container">
         <div class="content">
-            <h1 id="algorithmTitle">Bubble Sort Visualizer</h1>
-            
-            <div class="description-container" id="description">
-                Bubble Sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. The process repeats until the list is sorted.
-            </div>
+            <h1 id="algorithmTitle"></h1>
+            <div class="description-container" id="description"></div>
+
+            <p class="description">
+                Select a sorting algorithm to visualize how it sorts a given array.
+            </p>
 
             <div class="algorithm-select">
-                <label for="algorithm">Select sorting algorithm: </label>
+                <label for="algorithm">Select Sorting Algorithm: </label>
                 <select id="algorithm">
                     <option value="bubbleSort">Bubble Sort</option>
+                    <option value="selectionSort">Selection Sort</option>
                 </select>
             </div>
 
             <p id="stepCounter">Step: 0 / 0</p>
 
-            <button id="prevBtn">Previous Step</button>
             <button id="nextBtn">Next Step</button>
+            <button id="prevBtn">Previous Step</button>
+
             <button id="runBtn">Run</button>
             <button id="resetBtn">Reset</button>
-
-            <div class="input-container">
-                <label for="customNumbers">Enter custom numbers (1-10, up to 15 numbers): </label>
-                <input type="text" id="customNumbers" placeholder="1, 2, 3, 4" />
-                <button id="inputBtn">Set Custom Numbers</button>
-            </div>
+            <br />
+            <input type="text" id="customNumbers" placeholder="Enter 1-15 numbers (1–10), comma separated" autocomplete="off" />
+            <button id="inputBtn">Apply Custom Input</button>
 
             <div class="graph-container" id="graph"></div>
         </div>
@@ -48,4 +49,5 @@
     <script type="module" src="js/SortVisualizer.js"></script>
     <script src="js/codeDisplay.js"></script>
 </body>
+
 </html>

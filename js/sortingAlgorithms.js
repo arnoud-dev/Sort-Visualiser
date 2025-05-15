@@ -26,6 +26,25 @@ const bubbleSortSteps = function(arr) {
   return steps;
 };
 
+// Selection Sort Algorithm
+const selectionSortSteps = function(arr) {
+    let n = arr.length;
+    const steps = [[...arr]];
+    for (let i = 0; i < n; i++) {
+        let minIdx = i;
+        for (let j = i + 1; j < n; j++) {
+            if (arr[j] < arr[minIdx]) {
+                minIdx = j;
+            }
+        }
+        [arr[i], arr[minIdx]] = [arr[minIdx], arr[i]];
+        if (!arraysAreEqual(arr, steps[steps.length - 1])) {
+            steps.push([...arr]);
+        }
+    }
+    return steps;
+};
 export {
   bubbleSortSteps,
+  selectionSortSteps
 };

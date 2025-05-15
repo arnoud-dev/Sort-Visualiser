@@ -1,21 +1,52 @@
-import { bubbleSortSteps } from './sortingAlgorithms.js';
+import { 
+    bubbleSortSteps,
+    selectionSortSteps
+} from './sortingAlgorithms.js';
 
-const originalNumbers = [3, 7, 2, 9, 5, 8, 6, 1, 10, 4, 3, 7, 2, 8, 9];
+const originalNumbers = [3, 5, 8, 6, 1, 10, 4, 3];
 let numbers = [...originalNumbers];
 let currentAlgorithm = 'bubbleSort';
-let steps = bubbleSortSteps([...numbers]);
+let steps = [];
 let currentStep = 0;
 let runInterval = null;
 
 const graphContainer = document.getElementById('graph');
 const descriptionContainer = document.getElementById('description');
-const titleContainer = document.querySelector('h1');
+const titleContainer = document.getElementById('algorithmTitle');
 const stepCounter = document.getElementById('stepCounter');
 
 // Descriptions
 const algorithmDescriptions = {
-    bubbleSort: `Bubble Sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent elements, and swaps them if they are in the wrong order. The process repeats until the list is sorted.`
+    bubbleSort: `Bubble Sort is a simple sorting algorithm that repeatedly steps through the list, compares adjacent
+    elements, and swaps them if they are in the wrong order. The pass through the list is repeated until the
+    list is sorted.`,
+    
+    selectionSort: `Selection Sort is a simple comparison-based algorithm. It divides the list into two parts: 
+    a sorted and an unsorted sublist. It repeatedly selects the smallest element from the unsorted sublist 
+    and swaps it with the leftmost unsorted element.`,
 };
+
+function initializeSteps() {
+    if (runInterval) {
+        clearInterval(runInterval);
+        runInterval = null;
+    }
+
+    if (currentAlgorithm === 'bubbleSort') {
+        steps = bubbleSortSteps([...numbers]);
+    } else if (currentAlgorithm === 'selectionSort') {
+        steps = selectionSortSteps([...numbers]);
+    }
+
+    console.log('Steps generated:', steps);
+
+    currentStep = 0;
+    renderStep(currentStep);
+    updateDescriptionAndTitle(currentAlgorithm);
+    setControlsDisabled(false);
+    document.getElementById('runBtn').innerText = 'Run';
+}
+
 
 function renderStep(stepIndex) {
     const values = steps[stepIndex];
@@ -23,7 +54,7 @@ function renderStep(stepIndex) {
     values.forEach(num => {
         const bar = document.createElement('div');
         bar.className = 'bar';
-        bar.style.height = `${(num / 10) * 100}%`;
+        bar.style.height = `${(num / 10) * 95 }%`;
         bar.title = num;
         graphContainer.appendChild(bar);
     });
@@ -40,36 +71,22 @@ function setControlsDisabled(disabled) {
     document.querySelectorAll('button, select, input').forEach(el => el.disabled = disabled);
 }
 
-// Initial render
-renderStep(currentStep);
-updateDescriptionAndTitle(currentAlgorithm);
+initializeSteps();
 
-// Event listener for algorithm change
 document.getElementById('algorithm').addEventListener('change', (event) => {
     currentAlgorithm = event.target.value;
-    if (currentAlgorithm === 'bubbleSort') {
-        steps = bubbleSortSteps([...numbers]);
-        currentStep = 0;
-        renderStep(currentStep);
-        updateDescriptionAndTitle(currentAlgorithm);
-    }
+    initializeSteps();
 });
 
 // Reset button
 document.getElementById('resetBtn').addEventListener('click', () => {
-    if (runInterval) {
-        clearInterval(runInterval);
-        runInterval = null;
-    }
-
+    initializeSteps();
     numbers = [...originalNumbers];
-    steps = bubbleSortSteps([...numbers]);
-    currentStep = 0;
-    renderStep(currentStep);
 });
 
 // Next step
 document.getElementById('nextBtn').addEventListener('click', () => {
+    if (runInterval) return;
     if (currentStep < steps.length - 1) {
         currentStep++;
         renderStep(currentStep);
@@ -78,6 +95,7 @@ document.getElementById('nextBtn').addEventListener('click', () => {
 
 // Previous step
 document.getElementById('prevBtn').addEventListener('click', () => {
+    if (runInterval) return;
     if (currentStep > 0) {
         currentStep--;
         renderStep(currentStep);
@@ -86,25 +104,40 @@ document.getElementById('prevBtn').addEventListener('click', () => {
 
 // Run button
 document.getElementById('runBtn').addEventListener('click', () => {
-    if (runInterval) return;
-
-    setControlsDisabled(true);
-    runInterval = setInterval(() => {
-        currentStep++;
-        if (currentStep >= steps.length) {
-            clearInterval(runInterval);
-            runInterval = null;
-            setControlsDisabled(false);
-            return;
-        }
-        renderStep(currentStep);
-    }, 200);
+    if (runInterval) {
+        clearInterval(runInterval);
+        runInterval = null;
+        setControlsDisabled(false);
+        document.getElementById('runBtn').innerText = 'Run';
+    } else {
+        setControlsDisabled(true);
+        document.getElementById('runBtn').disabled = false;
+        document.getElementById('resetBtn').disabled = false;
+        document.getElementById('runBtn').innerText = 'Pause';
+        runInterval = setInterval(() => {
+            currentStep++;
+            if (currentStep >= steps.length) {
+                clearInterval(runInterval);
+                runInterval = null;
+                setControlsDisabled(false);
+                document.getElementById('runBtn').innerText = 'Run';
+                return;
+            }
+            renderStep(currentStep);
+        }, 200);
+    }
 });
 
 // Custom numbers input
 document.getElementById('inputBtn').addEventListener('click', () => {
+    if (runInterval) {
+        clearInterval(runInterval);
+        runInterval = null;
+        setControlsDisabled(false);
+        document.getElementById('runBtn').innerText = 'Run';
+    }
     const input = document.getElementById('customNumbers').value.trim();
-    const parts = input.split(',').map(num => num.trim());
+    const parts = input.split(',').map(num => num.trim()).filter(num => num !== '');
     const parsedNumbers = [];
 
     for (let part of parts) {
@@ -123,8 +156,5 @@ document.getElementById('inputBtn').addEventListener('click', () => {
 
     numbers = parsedNumbers;
     originalNumbers.splice(0, originalNumbers.length, ...parsedNumbers);
-    steps = bubbleSortSteps([...numbers]);
-    currentStep = 0;
-    renderStep(currentStep);
-    updateDescriptionAndTitle(currentAlgorithm);
+    initializeSteps();
 });

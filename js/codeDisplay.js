@@ -31,6 +31,21 @@ const codeSnippets = {
     } <span class="keyword">while</span> (<span class="variable">swapped</span>);
     <span class="keyword">return</span> <span class="parameter">arr</span>;
 }`
+,
+    selectionSort: `<span class="keyword">const</span> <span class="variable">selectionSort</span> = <span class="keyword">function</span>(<span class="parameter">arr</span>) {
+    <span class="keyword">let</span> <span class="variable">n</span> = <span class="parameter">arr</span>.length;
+    <span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">i</span> = <span class="literal">0</span>; <span class="variable">i</span> &lt; <span class="variable">n</span> - <span class="literal">1</span>; <span class="variable">i</span>++) {
+        <span class="keyword">let</span> <span class="variable">minIndex</span> = <span class="variable">i</span>;
+        <span class="keyword">for</span> (<span class="keyword">let</span> <span class="variable">j</span> = <span class="variable">i</span> + <span class="literal">1</span>; <span class="variable">j</span> &lt; <span class="variable">n</span>; <span class="variable">j</span>++) {
+            <span class="keyword">if</span> (<span class="parameter">arr</span>[<span class="variable">j</span>] &lt; <span class="parameter">arr</span>[<span class="variable">minIndex</span>]) {
+                <span class="variable">minIndex</span> = <span class="variable">j</span>;
+            }
+        }
+        [<span class="parameter">arr</span>[<span class="variable">i</span>], <span class="parameter">arr</span>[<span class="variable">minIndex</span>]] =
+        [<span class="parameter">arr</span>[<span class="variable">minIndex</span>], <span class="parameter">arr</span>[<span class="variable">i</span>]];
+    }
+    <span class="keyword">return</span> <span class="parameter">arr</span>;
+}`
 };
 
 // Event listener for algorithm selection
